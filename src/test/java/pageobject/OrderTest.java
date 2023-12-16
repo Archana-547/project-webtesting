@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.open;
 
 public class OrderTest {
-    LoginPage loginPage = new LoginPage();
+   OrderPage orderPage = new OrderPage();
 
     @BeforeAll
     public static void setUpAll() {
@@ -20,8 +20,9 @@ public class OrderTest {
 
     @BeforeEach
     public void setUp() {
-        Selenide.localStorage().setItem("jwt","");
         open("http://51.250.6.164:3000/signin");
+        Selenide.localStorage().setItem("jwt","eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcmNoYW5hYXFhIiwiZXhwIjoxNzAyMzQ4NDU2LCJpYXQiOjE3MDIzMzA0NTZ9.1TTIrC_G361ZsQus102n-w1ObyTE4mbXLSVaeYWElzk2sA9TXmTWIEGRoW3VtT9l5QfgXQ1A3RPNiYTaIUF83g");
+
         Selenide.refresh();
     }
 
@@ -31,11 +32,12 @@ public class OrderTest {
     }
 
     @Test
-    public void incorrectCredentials() {
-        loginPage.login.sendKeys("login");
-        loginPage.password.sendKeys("password");
-        loginPage.signInButton.click();
-        loginPage.errorIncorrectCredentials.shouldBe(visible);
+    public void creatingAnOrder() {
+        orderPage.name.sendKeys("CustomerName");
+        orderPage.phone.sendKeys("5676879");
+        orderPage.comment.sendKeys("Comment");
+        orderPage.orderButton.click();
     }
+
 
 }
